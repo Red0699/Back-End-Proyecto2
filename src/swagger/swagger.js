@@ -1,36 +1,36 @@
 const path = require("path");
 const baseUrl = 'http://localhost:3000';
+const swaggerSpec = {};
 
-const swaggerSpec = {
-    usuario: {
-        definition: {
-            openapi: "3.0.0",
-            info: {
-                title: "Api Inventario (Usuarios)",
-                version: "1.0.0"
-            },
-            servers: [
-                {
-                    url: baseUrl
-                }
-            ]
-        },
-        apis: [`${path.join(__dirname, "../routes/usuarioRuta.js")}`]
+const baseDefinition = {
+    openapi: "3.0.0",
+    info: {
+        title: "Api Inventario",
+        version: "1.0.0"
     },
-    cliente: {
-        definition: {
-            openapi: "3.0.0",
-            info: {
-                title: "Api Inventario (Clientes)",
-                version: "1.0.0"
-            },
-            servers: [
-                {
-                    url: baseUrl
-                }
-            ]
-        },
-        apis: [`${path.join(__dirname, "../routes/clienteRuta.js")}`]
-    }
+    servers: [
+        {
+            url: baseUrl
+        }
+    ]
 }
+
+swaggerSpec.proveedor = {
+    definition: baseDefinition,
+    apis: [`${path.join(__dirname, "../routes/proveedorRuta.js")}`]
+}
+
+swaggerSpec.usuario = {
+    definition: baseDefinition,
+    apis: [`${path.join(__dirname, "../routes/usuarioRuta.js")}`]
+}
+
+swaggerSpec.cliente = {
+    definition: baseDefinition,
+    apis: [`${path.join(__dirname, "../routes/clienteRuta.js")}`]
+}
+
+
+
+
 module.exports = swaggerSpec;

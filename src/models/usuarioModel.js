@@ -66,8 +66,6 @@ usuarioSchema.updateUsuario = function(id ,data, callback){
             }
         });
     }
-
 }
-
 
 module.exports = usuarioSchema;
