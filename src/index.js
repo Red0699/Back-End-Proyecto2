@@ -8,6 +8,7 @@ const conexiondb = require('./connection/conexion');
 const usuarioRoutes = require('./routes/usuarioRuta');
 const clienteRoutes = require('./routes/clienteRuta');
 const proveedorRoutes = require('./routes/proveedorRuta');
+const productoRoutes = require('./routes/productoRuta');
 
 app.get('/', (req,res) => {
     res.send("Prueba de API");
@@ -26,7 +27,8 @@ app.use('/api', usuarioRoutes);
 app.use('/api-usuario', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec.usuario)));
 app.use('/api', clienteRoutes);
 app.use('/api-cliente', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec.cliente)));
-
+app.use('/api', productoRoutes);
+app.use('/api-producto', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec.producto)));
 
 //CORS
 app.use(function (req, res, next)

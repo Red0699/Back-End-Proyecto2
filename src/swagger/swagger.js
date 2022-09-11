@@ -30,7 +30,10 @@ swaggerSpec.cliente = {
     apis: [`${path.join(__dirname, "../routes/clienteRuta.js")}`]
 }
 
-
+swaggerSpec.producto = {
+    definition: baseDefinition,
+    apis: [`${path.join(__dirname, "../routes/productoRuta.js")}`]
+}
 
 
 module.exports = swaggerSpec;
