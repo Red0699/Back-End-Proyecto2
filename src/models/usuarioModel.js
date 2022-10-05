@@ -46,7 +46,7 @@ usuarioSchema.getUsuario = function(id, callback){
 }
 
 //actualizar un usuario
-usuarioSchema.updateUsuario = function(id ,data, callback){
+usuarioSchema.updateUsuario = function(id, data, callback){
     if(conexion){
         var sql = "UPDATE usuario SET "
                     + "primerNombre = " + conexion.escape(data.primerNombre)
@@ -54,7 +54,7 @@ usuarioSchema.updateUsuario = function(id ,data, callback){
                     + ", apellidoPaterno = " + conexion.escape(data.apellidoPaterno)
                     + ", apellidoMaterno = " + conexion.escape(data.apellidoMaterno)
                     + ", telefono = " + conexion.escape(data.telefono)
-                    + ", correo = " + conexion.escape(data.primercorreo)
+                    + ", correo = " + conexion.escape(data.correo)
                     + ", contraseña = " + conexion.escape(data.contraseña)
                     + ", idRol = " + conexion.escape(data.idRol)
                     + " WHERE idUsuario = " + conexion.escape(id) + ";";

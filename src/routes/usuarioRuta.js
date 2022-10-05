@@ -201,12 +201,12 @@ router.get('/usuarios/:id', (req, res) => {
  *              description: Usuario no encontrado
  */
 
-router.put("/usuarios/:id", (req, res) => {
+router.put('/usuarios/:id', (req, res) => {
 
     const id = req.params.id;
 
     const data = {
-        idUsuario: null,
+        //idUsuario: req.body.idUsuario,
         primerNombre: req.body.primerNombre,
         segundoNombre: req.body.segundoNombre,
         apellidoPaterno: req.body.apellidoPaterno,
