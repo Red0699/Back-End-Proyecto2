@@ -206,7 +206,7 @@ router.put('/usuarios/:id', (req, res) => {
     const id = req.params.id;
 
     const data = {
-        //idUsuario: req.body.idUsuario,
+        idUsuario: null,
         primerNombre: req.body.primerNombre,
         segundoNombre: req.body.segundoNombre,
         apellidoPaterno: req.body.apellidoPaterno,
@@ -233,5 +233,8 @@ router.put('/usuarios/:id', (req, res) => {
         res.status(500).json({ "msg": "Debe ingresar un numero" });
     }
 });
+
+//------------------------------------------ Ruta deshabilitar un usuario ----------------------------------------------
+
 
 module.exports = router;
