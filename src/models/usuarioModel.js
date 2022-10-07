@@ -5,7 +5,7 @@ const usuarioSchema = {};
 //Listar todos los usuarios
 usuarioSchema.getUsuarios = function(callback){
     if(conexion){
-        var sql = "SELECT * FROM usuario ORDER BY idUsuario";
+        var sql = "SELECT * FROM usuario WHERE estado = 'Activo' ORDER BY idUsuario";
         conexion.query(sql, function(error, rows){
             if(error){
                 throw error;
@@ -46,7 +46,7 @@ usuarioSchema.getUsuario = function(id, callback){
 }
 
 //actualizar un usuario
-usuarioSchema.updateUsuario = function(id ,data, callback){
+usuarioSchema.updateUsuario = function(id, data, callback){
     if(conexion){
         var sql = "UPDATE usuario SET "
                     + "primerNombre = " + conexion.escape(data.primerNombre)
@@ -54,9 +54,10 @@ usuarioSchema.updateUsuario = function(id ,data, callback){
                     + ", apellidoPaterno = " + conexion.escape(data.apellidoPaterno)
                     + ", apellidoMaterno = " + conexion.escape(data.apellidoMaterno)
                     + ", telefono = " + conexion.escape(data.telefono)
-                    + ", correo = " + conexion.escape(data.primercorreo)
+                    + ", correo = " + conexion.escape(data.correo)
                     + ", contraseña = " + conexion.escape(data.contraseña)
                     + ", idRol = " + conexion.escape(data.idRol)
+                    + ", estado = " + conexion.escape(data.estado)
                     + " WHERE idUsuario = " + conexion.escape(id) + ";";
         conexion.query(sql, function(error, result){
             if(error){
@@ -67,5 +68,6 @@ usuarioSchema.updateUsuario = function(id ,data, callback){
         });
     }
 }
+
 
 module.exports = usuarioSchema;

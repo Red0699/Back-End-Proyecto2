@@ -25,15 +25,18 @@ const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerSpec = require('./swagger/swagger');
 
 //middlewares
+
+app.use(cors());
+
 app.use(express.json());
 app.use('/api', proveedorRoutes);
-app.use('/api-proveedor', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec.proveedor)));
+//app.use('/api-proveedor', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec.proveedor)));
 app.use('/api', usuarioRoutes);
 app.use('/api-usuario', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec.usuario)));
 app.use('/api', clienteRoutes);
-app.use('/api-cliente', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec.cliente)));
+//app.use('/api-cliente', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec.cliente)));
 app.use('/api', productoRoutes);
-app.use('/api-producto', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec.producto)));
+//app.use('/api-producto', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec.producto)));
 
 /*
 app.use(cors({

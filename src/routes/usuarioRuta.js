@@ -36,6 +36,9 @@ const usuarioSchema = require('../models/usuarioModel');
  *              idRol:
  *                  type: integer
  *                  description: Tipo rol del usuario
+ *              estado:
+ *                  type: string
+ *                  description: Tipo rol del usuario
  *          required:
  *              - primerNombre
  *              - segundoNombre
@@ -45,6 +48,7 @@ const usuarioSchema = require('../models/usuarioModel');
  *              - correo
  *              - contraseña
  *              - idRol
+ *              - estado
  *          example:
  *              primerNombre: Yimmer
  *              segundoNombre: Nicolas
@@ -54,7 +58,11 @@ const usuarioSchema = require('../models/usuarioModel');
  *              correo: yncampos@ucundinamarca.edu.co
  *              contraseña: admin123
  *              idRol: 2
+ *              estado: Activo
+ * 
+ *           
  */
+
 
 // ------------------------------------ Ruta obtener todos los usuarios ---------------------------------------------
 
@@ -114,7 +122,8 @@ router.post('/usuarios', (req, res) => {
         telefono: req.body.telefono,
         correo: req.body.correo,
         contraseña: req.body.contraseña,
-        idRol: req.body.idRol
+        idRol: req.body.idRol,
+        estado: 'Activo'
     };
 
     //Funcion para insertar
@@ -201,7 +210,7 @@ router.get('/usuarios/:id', (req, res) => {
  *              description: Usuario no encontrado
  */
 
-router.put("/usuarios/:id", (req, res) => {
+router.put('/usuarios/:id', (req, res) => {
 
     const id = req.params.id;
 
@@ -214,7 +223,8 @@ router.put("/usuarios/:id", (req, res) => {
         telefono: req.body.telefono,
         correo: req.body.correo,
         contraseña: req.body.contraseña,
-        idRol: req.body.idRol
+        idRol: req.body.idRol,
+        estado: req.body.estado
     };
 
     if (!isNaN(id)) {

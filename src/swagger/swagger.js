@@ -1,5 +1,5 @@
 const path = require("path");
-const baseUrl = 'http://localhost:3000';
+const baseUrl = 'http://localhost:5000';
 const swaggerSpec = {};
 
 const baseDefinition = {
