@@ -1,5 +1,5 @@
 const conexion = require('../connection/conexion');
-
+const jwt = require("jsonwebtoken");
 const usuarioSchema = {};
 
 //Listar todos los usuarios
@@ -68,6 +68,5 @@ usuarioSchema.updateUsuario = function(id, data, callback){
         });
     }
 }
-
 
 module.exports = usuarioSchema;

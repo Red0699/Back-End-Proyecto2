@@ -3,5 +3,8 @@
      "port": "3306",
      "user": "root",
      "password": "",
-     "database" : "softinventory"
+     "database" : "softinventory",
+     "JWT_SECRETO" : "super_secret",
+     "JWT_TIEMPO_EXPIRA": "7d",
+     "JWT_COOKIE_EXPIRES": 90
 }

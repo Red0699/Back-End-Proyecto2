@@ -10,13 +10,21 @@ const usuarioRoutes = require('./routes/usuarioRuta');
 const clienteRoutes = require('./routes/clienteRuta');
 const proveedorRoutes = require('./routes/proveedorRuta');
 const productoRoutes = require('./routes/productoRuta');
+const login = require('./routes/login');
 
+//auteticación
+const auth = require('./routes/auth');
 
 app.use(cors())
 
 app.get('/', (req,res) => {
     res.send("Prueba de API");
 });
+
+// authentication endpoint
+app.get("/api/auth-endpoint", auth, (request, response) => {
+    response.json({ message: "You are authorized to access me" });
+  });
 
 
 //swagger
@@ -37,7 +45,7 @@ app.use('/api', clienteRoutes);
 //app.use('/api-cliente', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec.cliente)));
 app.use('/api', productoRoutes);
 //app.use('/api-producto', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec.producto)));
-
+app.use('/api', login);
 /*
 app.use(cors({
     origin: 'http://localhost:3000/usuarios',
