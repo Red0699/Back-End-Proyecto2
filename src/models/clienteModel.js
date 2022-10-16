@@ -5,7 +5,7 @@ const clienteSchema = {};
 //Listar todos los clientes
 clienteSchema.getClientes = function(callback){
     if(conexion){
-        var sql = "SELECT * FROM cliente ORDER BY idCliente";
+        var sql = "SELECT * FROM cliente WHERE estado = 'Activo' ORDER BY idCliente";
         conexion.query(sql, function(error, rows){
             if(error){
                 throw error;
@@ -53,6 +53,7 @@ clienteSchema.updateCliente = function(id ,data, callback){
                     + ", apellido = " + conexion.escape(data.apellido)
                     + ", telefono = " + conexion.escape(data.telefono)
                     + ", correo = " + conexion.escape(data.correo)
+                    + ", estado = " + conexion.escape(data.estado)
                     + " WHERE idCliente = " + conexion.escape(id) + ";";
         conexion.query(sql, function(error, result){
             if(error){

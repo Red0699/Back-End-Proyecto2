@@ -5,7 +5,7 @@ const productoSchema = {};
 //Listar todos los productos
 productoSchema.getProductos = function(callback){
     if(conexion){
-        var sql = "SELECT * FROM producto ORDER BY idProducto";
+        var sql = "SELECT * FROM producto WHERE estado = 'Activo' ORDER BY idProducto";
         conexion.query(sql, function(error, rows){
             if(error){
                 throw error;
@@ -52,6 +52,7 @@ productoSchema.updateProducto = function(id ,data, callback){
                     + "descripcion = " + conexion.escape(data.descripcion)
                     + ", almacen = " + conexion.escape(data.almacen)
                     + ", idCategoria = " + conexion.escape(data.idCategoria)
+                    + ", estado = " + conexion.escape(data.estado)
                     + " WHERE idProducto = " + conexion.escape(id) + ";";
         conexion.query(sql, function(error, result){
             if(error){

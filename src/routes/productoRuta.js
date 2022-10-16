@@ -19,17 +19,22 @@ const productoSchema = require('../models/productoModel');
  *              idCategoria:
  *                  type: integer
  *                  description: categoria del producto
+ *              estado:
+ *                  type: string
+ *                  description: Estado del cliente
  *          required:
  *              - descripcion
  *              - almacen
  *              - idCategoria
+ *              - estado
  *          example:
  *              descripcion: Huawei Y7 Prime
  *              almacen: alm001
  *              idCategoria: 1
+ *              estado: Activo
  */
 
-// ------------------------------------ Ruta obtener todos los proveedores ---------------------------------------------
+// ------------------------------------ Ruta obtener todos los productos ---------------------------------------------
 
 /**
  * @swagger
@@ -82,7 +87,8 @@ router.post('/productos', (req, res) => {
         idProducto: null,
         descripcion: req.body.descripcion,
         almacen: req.body.almacen,
-        idCategoria: req.body.idCategoria
+        idCategoria: req.body.idCategoria,
+        estado: 'Activo'
     };
 
     //Funcion para insertar
@@ -177,7 +183,8 @@ router.put("/productos/:id", (req, res) => {
         idProducto: null,
         descripcion: req.body.descripcion,
         almacen: req.body.almacen,
-        idCategoria: req.body.idCategoria
+        idCategoria: req.body.idCategoria,
+        estado: req.body.estado
     };
 
     if (!isNaN(id)) {

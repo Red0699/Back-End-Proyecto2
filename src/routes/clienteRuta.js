@@ -18,20 +18,25 @@ const clienteSchema = require('../models/clienteModel');
  *                  description: apellido del cliente
  *              telefono:
  *                  type: string
- *                  description: telefono del usuario
+ *                  description: telefono del cliente
  *              correo:
  *                  type: string
- *                  description: correo del usuario
+ *                  description: correo del cliente
+ *              estado:
+ *                  type: string
+ *                  description: Estado del cliente
  *          required:
  *              - nombre
  *              - apellido
  *              - telefono
  *              - correo
+ *              - estado
  *          example:
  *              nombre: Yimmer
  *              apellido: Campos
  *              telefono: 3214663210
  *              correo: yimmernicolas@gmail.com
+ *              estado: Activo
  */
 
 // ------------------------------------ Ruta obtener todos los clientes ---------------------------------------------
@@ -88,7 +93,8 @@ router.post('/clientes', (req, res) => {
         nombre: req.body.nombre,
         apellido: req.body.apellido,
         telefono: req.body.telefono,
-        correo: req.body.correo
+        correo: req.body.correo,
+        estado: 'Activo'
     };
 
     //Funcion para insertar
@@ -184,7 +190,8 @@ router.put("/clientes/:id", (req, res) => {
         nombre: req.body.nombre,
         apellido: req.body.apellido,
         telefono: req.body.telefono,
-        correo: req.body.correo
+        correo: req.body.correo,
+        estado: req.body.estado
     };
 
     if (!isNaN(id)) {
