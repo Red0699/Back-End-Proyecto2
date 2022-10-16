@@ -5,7 +5,7 @@ const proveedorSchema = {};
 //Listar todos los proveedores
 proveedorSchema.getProveedores = function(callback){
     if(conexion){
-        var sql = "SELECT * FROM proveedor ORDER BY idProveedor";
+        var sql = "SELECT * FROM proveedor WHERE estado = 'Activo' ORDER BY idProveedor";
         conexion.query(sql, function(error, rows){
             if(error){
                 throw error;
@@ -53,6 +53,7 @@ proveedorSchema.updateProveedor = function(id ,data, callback){
                     + ", apellido = " + conexion.escape(data.apellido)
                     + ", telefono = " + conexion.escape(data.telefono)
                     + ", correo = " + conexion.escape(data.correo)
+                    + ", estado = " + conexion.escape(data.estado)
                     + " WHERE idProveedor = " + conexion.escape(id) + ";";
         conexion.query(sql, function(error, result){
             if(error){

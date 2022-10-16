@@ -38,7 +38,7 @@ const usuarioSchema = require('../models/usuarioModel');
  *                  description: Tipo rol del usuario
  *              estado:
  *                  type: string
- *                  description: Tipo rol del usuario
+ *                  description: estado del usuario
  *          required:
  *              - primerNombre
  *              - segundoNombre

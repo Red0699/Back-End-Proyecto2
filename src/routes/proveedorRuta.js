@@ -22,16 +22,21 @@ const proveedorSchema = require('../models/proveedorModel');
  *              correo:
  *                  type: string
  *                  description: correo del usuario
+ *              estado:
+ *                  type: string
+ *                  description: Estado del proveedor
  *          required:
  *              - nombre
  *              - apellido
  *              - telefono
  *              - correo
+ *              - estado
  *          example:
  *              nombre: Yimmer
  *              apellido: Campos
  *              telefono: 3214663210
  *              correo: yimmernicolas@gmail.com
+ *              estado: Activo
  */
 
 // ------------------------------------ Ruta obtener todos los proveedores ---------------------------------------------
@@ -88,7 +93,8 @@ router.post('/proveedores', (req, res) => {
         nombre: req.body.nombre,
         apellido: req.body.apellido,
         telefono: req.body.telefono,
-        correo: req.body.correo
+        correo: req.body.correo,
+        estado: 'Activo'
     };
 
     //Funcion para insertar
@@ -184,7 +190,8 @@ router.put("/proveedores/:id", (req, res) => {
         nombre: req.body.nombre,
         apellido: req.body.apellido,
         telefono: req.body.telefono,
-        correo: req.body.correo
+        correo: req.body.correo,
+        estado: req.body.estado
     };
 
     if (!isNaN(id)) {
