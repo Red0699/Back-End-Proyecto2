@@ -11,6 +11,7 @@ const clienteRoutes = require('./routes/clienteRuta');
 const proveedorRoutes = require('./routes/proveedorRuta');
 const productoRoutes = require('./routes/productoRuta');
 const login = require('./routes/login');
+const entradaRoutes = require('./routes/entradaRuta')
 
 //auteticación
 const auth = require('./routes/auth');
@@ -46,6 +47,7 @@ app.use('/api', clienteRoutes);
 app.use('/api', productoRoutes);
 app.use('/api-producto', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec.producto)));
 app.use('/api', login);
+app.use('/api', entradaRoutes);
 /*
 app.use(cors({
     origin: 'http://localhost:3000/usuarios',
