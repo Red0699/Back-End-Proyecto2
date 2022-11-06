@@ -8,7 +8,7 @@ const conexion = require('../connection/conexion');
 
 router.get('/entrada', async (req, res) => {
     try {
-        var sql = "SELECT * FROM entrada WHERE estado = 'Activo'"
+        var sql = "SELECT * FROM entrada NATURAL JOIN producto WHERE estadoEntrada = 'Activo'"
         conexion.query(sql, (err, results) => {
             if(!err){
                 res.status(200).json(results)
@@ -27,11 +27,13 @@ router.post('/entrada', async (req, res) => {
     try {
         const idProveedor = req.body.idProveedor;
         const idProducto = req.body.idProducto;
-        const montoTotal = req.body.montoTotal;
+        const estado = 'Activo'
+        //const montoTotal = req.body.montoTotal;
         const data = {
             idProveedor: idProveedor,
             idProducto: idProducto,
-            montoTotal: montoTotal,
+            estado: estado
+            //montoTotal: montoTotal,
         }
 
         var sql = 'INSERT INTO entrada SET ?'
@@ -53,7 +55,7 @@ router.get('/entrada/:id', async (req, res) => {
     try{
         const id = req.params.id;
         if (!isNaN(id)){
-            var sql = `SELECT * FROM entrada WHERE idEntrada = ${id}`;
+            var sql = `SELECT * FROM entrada NATURAL JOIN producto WHERE idEntrada = ${id}`;
             conexion.query(sql, (err, results) => {
                 if(!err){
                     res.status(200).json(results)
@@ -69,7 +71,7 @@ router.get('/entrada/:id', async (req, res) => {
     }
 })
 
-//------------------------------------------------------------ Consultar entrada ----------------------------------------------------------------
+//------------------------------------------------------------ Actualizar entrada ----------------------------------------------------------------
 router.put('/entrada/:id', async (req, res) => {
     try{
         const id = req.params.id;

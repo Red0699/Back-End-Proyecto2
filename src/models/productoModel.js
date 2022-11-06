@@ -5,7 +5,7 @@ const productoSchema = {};
 //Listar todos los productos
 productoSchema.getProductos = function(callback){
     if(conexion){
-        var sql = "SELECT * FROM producto WHERE estado = 'Activo' ORDER BY idProducto";
+        var sql = "SELECT * FROM producto WHERE estadoProd = 'Activo' ORDER BY idProducto";
         conexion.query(sql, function(error, rows){
             if(error){
                 throw error;
@@ -52,7 +52,7 @@ productoSchema.updateProducto = function(id ,data, callback){
                     + "descripcion = " + conexion.escape(data.descripcion)
                     + ", almacen = " + conexion.escape(data.almacen)
                     + ", idCategoria = " + conexion.escape(data.idCategoria)
-                    + ", estado = " + conexion.escape(data.estado)
+                    + ", estadoProd = " + conexion.escape(data.estadoProd)
                     + " WHERE idProducto = " + conexion.escape(id) + ";";
         conexion.query(sql, function(error, result){
             if(error){
@@ -63,6 +63,24 @@ productoSchema.updateProducto = function(id ,data, callback){
         });
     }
 
+}
+
+productoSchema.updateProdEntrada = function(id, data, callback){
+    if(conexion){
+        var sql = "UPDATE producto SET "
+                    + "precioCompra = " + conexion.escape(data.precioCompra)
+                    + ", precioVenta = " + conexion.escape(data.precioVenta)
+                    + ", stock = " + conexion.escape(data.stock)
+                    +", estadoEntrada = " + conexion.escape(data.estadoEntrada)
+                    + " WHERE idProducto = " + conexion.escape(id) + ";";
+        conexion.query(sql, function(error, result){
+            if(error){
+                throw error;
+            }else{
+                callback(null, {"msg": "producto actualizado"})
+            }
+        });
+    }
 }
 
 module.exports = productoSchema;

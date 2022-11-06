@@ -19,19 +19,31 @@ const productoSchema = require('../models/productoModel');
  *              idCategoria:
  *                  type: integer
  *                  description: categoria del producto
- *              estado:
+ *              precioCompra:
+ *                  type: float
+ *                  description: precio de compra del producto
+ *              precioVenta: 
+ *                  type: float
+ *                  description: precio de venta del producto
+ *              stock: 
+ *                  type: float
+ *                  description: stock del producto
+ *              estadoProd:
  *                  type: string
  *                  description: Estado del cliente
  *          required:
  *              - descripcion
  *              - almacen
  *              - idCategoria
- *              - estado
+ *              - estadoProd
  *          example:
  *              descripcion: Huawei Y7 Prime
  *              almacen: alm001
  *              idCategoria: 1
- *              estado: Activo
+ *              estadoProd: Activo
+ *              precioCompra: 200.23
+ *              precioVenta: 400.46
+ *              stock: 20
  */
 
 // ------------------------------------ Ruta obtener todos los productos ---------------------------------------------
@@ -88,7 +100,11 @@ router.post('/productos', (req, res) => {
         descripcion: req.body.descripcion,
         almacen: req.body.almacen,
         idCategoria: req.body.idCategoria,
-        estado: 'Activo'
+        //precioCompra: req.body.precioCompra,
+        //precioVenta: req.body.precioVenta,
+        //stock: req.body.stock,
+        estadoProd: 'Activo',
+        estadoEntrada: 'Inactivo'
     };
 
     //Funcion para insertar
@@ -184,12 +200,44 @@ router.put("/productos/:id", (req, res) => {
         descripcion: req.body.descripcion,
         almacen: req.body.almacen,
         idCategoria: req.body.idCategoria,
-        estado: req.body.estado
+        //precioCompra: req.body.precioCompra,
+        //precioVenta: req.body.precioVenta,
+        //stock: req.body.stock,
+        estadoProd: req.body.estadoProd,
+        estadoEntrada: req.body.estadoEntrada
     };
 
     if (!isNaN(id)) {
 
         productoSchema.updateProducto(id, data, function (error, data) {
+
+            if (data && data.msg) {
+                res.status(200).json(data);
+            } else {
+                res.status(500).send({ error: ":(" });
+            }
+
+        });
+
+    } else {
+        res.status(500).json({ "msg": "Debe ingresar un numero" });
+    }
+});
+
+router.put("/productosEntrada/:id", (req, res) => {
+
+    const id = req.params.id;
+
+    const data = {
+        precioCompra: req.body.precioCompra,
+        precioVenta: req.body.precioVenta,
+        stock: req.body.stock,
+        estadoEntrada: 'Activo'
+    };
+
+    if (!isNaN(id)) {
+
+        productoSchema.updateProdEntrada(id, data, function (error, data) {
 
             if (data && data.msg) {
                 res.status(200).json(data);
