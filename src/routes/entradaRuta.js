@@ -4,8 +4,6 @@ const conexion = require('../connection/conexion');
 
 //------------------------------------------------------------ Obtener entradas ----------------------------------------------------------------
 
-
-
 router.get('/entrada', async (req, res) => {
     try {
         var sql = "SELECT * FROM entrada NATURAL JOIN producto WHERE estadoEntrada = 'Activo'"
