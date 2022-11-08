@@ -53,7 +53,7 @@ router.get('/entrada/:id', async (req, res) => {
     try{
         const id = req.params.id;
         if (!isNaN(id)){
-            var sql = `SELECT * FROM entrada NATURAL JOIN producto WHERE idEntrada = ${id}`;
+            var sql = `SELECT * FROM entrada NATURAL JOIN producto NATURAL JOIN proveedor WHERE idEntrada = ${id}`;
             conexion.query(sql, (err, results) => {
                 if(!err){
                     res.status(200).json(results)
