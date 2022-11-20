@@ -16,6 +16,34 @@ productoSchema.getProductos = function(callback){
     }
 }
 
+//Listar todos los productos con entradas inactivas
+productoSchema.getEntradasInactivas = function(callback){
+    if(conexion){
+        var sql = "SELECT * FROM producto WHERE estadoEntrada = 'Inactivo' ORDER BY idProducto";
+        conexion.query(sql, function(error, rows){
+            if(error){
+                throw error;
+            }else{
+                callback(null, rows);
+            }
+        });
+    }
+}
+
+//Listar todos los productos con entradas activas
+productoSchema.getEntradasActivas = function(callback){
+    if(conexion){
+        var sql = "SELECT * FROM producto WHERE estadoEntrada = 'Activo' ORDER BY idProducto";
+        conexion.query(sql, function(error, rows){
+            if(error){
+                throw error;
+            }else{
+                callback(null, rows);
+            }
+        });
+    }
+}
+
 //Agregar un nuevo producto
 productoSchema.insertProducto = function(data, callback){
     if(conexion){
@@ -53,6 +81,7 @@ productoSchema.updateProducto = function(id ,data, callback){
                     + ", almacen = " + conexion.escape(data.almacen)
                     + ", idCategoria = " + conexion.escape(data.idCategoria)
                     + ", estadoProd = " + conexion.escape(data.estadoProd)
+                    + ", estadoEntrada = " + conexion.escape(data.estadoEntrada)
                     + " WHERE idProducto = " + conexion.escape(id) + ";";
         conexion.query(sql, function(error, result){
             if(error){

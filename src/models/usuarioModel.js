@@ -5,7 +5,7 @@ const usuarioSchema = {};
 //Listar todos los usuarios
 usuarioSchema.getUsuarios = function(callback){
     if(conexion){
-        var sql = "SELECT * FROM usuario WHERE estado = 'Activo' ORDER BY idUsuario";
+        var sql = "SELECT * FROM usuario NATURAL JOIN rol WHERE estado = 'Activo' ORDER BY idUsuario";
         conexion.query(sql, function(error, rows){
             if(error){
                 throw error;

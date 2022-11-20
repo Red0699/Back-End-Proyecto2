@@ -71,6 +71,56 @@ const productoSchema = require('../models/productoModel');
     });
 });
 
+// ------------------------------------ Ruta obtener todos los productos con entradas no activas ---------------------------------------------
+
+/**
+ * @swagger
+ * /api/productosEnIn:
+ *  get:
+ *      summary: retorna todos los productos con entradas no activas
+ *      tags: [Producto]
+ *      responses:
+ *          200:
+ *              description: Todos los productos
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref : '#/components/schemas/Producto'
+ */
+
+ router.get('/productosEnIn', (req, res) => {
+    productoSchema.getEntradasInactivas(function (error, data) {
+        res.status(200).json(data);
+    });
+});
+
+// ------------------------------------ Ruta obtener todos los productos con entradas activas ---------------------------------------------
+
+/**
+ * @swagger
+ * /api/productosEn:
+ *  get:
+ *      summary: retorna todos los productos con entradas activas
+ *      tags: [Producto]
+ *      responses:
+ *          200:
+ *              description: Todos los productos
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref : '#/components/schemas/Producto'
+ */
+
+ router.get('/productosEn', (req, res) => {
+    productoSchema.getEntradasActivas(function (error, data) {
+        res.status(200).json(data);
+    });
+});
+
 //---------------------------------- Ruta insertar un nuevo producto ----------------------------------------------
 
 /**

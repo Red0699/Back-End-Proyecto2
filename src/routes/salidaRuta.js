@@ -2,11 +2,14 @@ const express = require('express');
 const router = express.Router();
 const conexion = require('../connection/conexion');
 
-//------------------------------------------------------------ Obtener entradas ----------------------------------------------------------------
+//------------------------------------------------------------ Obtener salidas ----------------------------------------------------------------
 
-router.get('/entrada', async (req, res) => {
+router.get('/salida', async (req, res) => {
     try {
-        var sql = "SELECT * FROM entrada NATURAL JOIN producto WHERE estadoEntrada = 'Activo' AND estado = 'Activo'"
+        var sql = "SELECT * FROM salida INNER JOIN producto ON salida.idProducto = producto.idProducto "
+        + "INNER JOIN cliente ON salida.idCliente = cliente.idCliente "
+        + "WHERE salida.estado = 'Activo' AND producto.estadoEntrada = 'Activo' "
+        + "ORDER BY salida.idSalida"
         conexion.query(sql, (err, results) => {
             if(!err){
                 res.status(200).json(results)
@@ -19,22 +22,26 @@ router.get('/entrada', async (req, res) => {
     }
 })
 
-//------------------------------------------------------------ Insertar entrada ----------------------------------------------------------------
+//------------------------------------------------------------ Insertar salida ----------------------------------------------------------------
 
-router.post('/entrada', async (req, res) => {
+router.post('/salida', async (req, res) => {
     try {
-        const idProveedor = req.body.idProveedor;
+        const idCliente = req.body.idCliente;
         const idProducto = req.body.idProducto;
+        const subtotal = req.body.subtotal;
+        const cantidadProducto = req.body.cantidadProducto;
         const estado = 'Activo'
-        //const montoTotal = req.body.montoTotal;
+        
         const data = {
-            idProveedor: idProveedor,
+            idCliente: idCliente,
             idProducto: idProducto,
+            subtotal: subtotal,
+            cantidadProducto: cantidadProducto,
             estado: estado
-            //montoTotal: montoTotal,
+            
         }
 
-        var sql = 'INSERT INTO entrada SET ?'
+        var sql = 'INSERT INTO salida SET ?'
         conexion.query(sql, data, (err, rows, fields) => {
             if (!err) {
                 res.status(200).json(data)
@@ -47,13 +54,13 @@ router.post('/entrada', async (req, res) => {
     }
 })
 
-//------------------------------------------------------------ Consultar entrada ----------------------------------------------------------------
+//------------------------------------------------------------ Consultar salida ----------------------------------------------------------------
 
-router.get('/entrada/:id', async (req, res) => {
+router.get('/salida/:id', async (req, res) => {
     try{
         const id = req.params.id;
         if (!isNaN(id)){
-            var sql = `SELECT * FROM entrada NATURAL JOIN producto NATURAL JOIN proveedor WHERE idEntrada = ${id}`;
+            var sql = `SELECT * FROM salida NATURAL JOIN producto NATURAL JOIN cliente WHERE idSalida = ${id}`;
             conexion.query(sql, (err, results) => {
                 if(!err){
                     res.status(200).json(results)
@@ -69,17 +76,18 @@ router.get('/entrada/:id', async (req, res) => {
     }
 })
 
-//------------------------------------------------------------ Actualizar entrada ----------------------------------------------------------------
-router.put('/entrada/:id', async (req, res) => {
+//------------------------------------------------------------ Actualizar salida ----------------------------------------------------------------
+router.put('/salida/:id', async (req, res) => {
     try{
         const id = req.params.id;
         if(!isNaN(id)){
-            var sql = `UPDATE entrada SET`
+            var sql = `UPDATE salida SET`
             + ` idProducto = ${req.body.idProducto}`
-            + `, idProveedor = ${req.body.idProveedor}`
-            + `, montoTotal = ${req.body.montoTotal}`
+            + `, idCliente = ${req.body.idCliente}`
+            + `, subtotal = ${req.body.subtotal}`
+            + `, cantidadProducto = ${req.body.cantidadProducto}`
             + `, estado = '${req.body.estado}'`
-            + ` WHERE idEntrada = ${id}`
+            + ` WHERE idSalida = ${id}`
             conexion.query(sql, (err, result) => {
                 if(!err){
                     res.status(200).json(result)
@@ -93,8 +101,6 @@ router.put('/entrada/:id', async (req, res) => {
         console.log(error);
     }
 })
-
-
 
 module.exports = router;
 
