@@ -8,7 +8,7 @@ router.get('/salida', async (req, res) => {
     try {
         var sql = "SELECT * FROM salida INNER JOIN producto ON salida.idProducto = producto.idProducto "
         + "INNER JOIN cliente ON salida.idCliente = cliente.idCliente "
-        + "WHERE salida.estado = 'Activo' AND producto.estadoEntrada = 'Activo' "
+        + "WHERE salida.estado = 'Activo' AND producto.estadoSalida = 'Activo' "
         + "ORDER BY salida.idSalida"
         conexion.query(sql, (err, results) => {
             if(!err){
@@ -88,6 +88,7 @@ router.put('/salida/:id', async (req, res) => {
             + `, cantidadProducto = ${req.body.cantidadProducto}`
             + `, estado = '${req.body.estado}'`
             + ` WHERE idSalida = ${id}`
+
             conexion.query(sql, (err, result) => {
                 if(!err){
                     res.status(200).json(result)

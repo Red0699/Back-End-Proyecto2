@@ -154,7 +154,8 @@ router.post('/productos', (req, res) => {
         //precioVenta: req.body.precioVenta,
         //stock: req.body.stock,
         estadoProd: 'Activo',
-        estadoEntrada: 'Inactivo'
+        estadoEntrada: 'Inactivo',
+        estadoSalida: 'Inactivo'
     };
 
     //Funcion para insertar
@@ -254,7 +255,8 @@ router.put("/productos/:id", (req, res) => {
         //precioVenta: req.body.precioVenta,
         //stock: req.body.stock,
         estadoProd: req.body.estadoProd,
-        estadoEntrada: req.body.estadoEntrada
+        estadoEntrada: req.body.estadoEntrada,
+        estadoSalida: req.body.estadoSalida
     };
 
     if (!isNaN(id)) {
@@ -282,7 +284,8 @@ router.put("/productosEntrada/:id", (req, res) => {
         precioCompra: req.body.precioCompra,
         precioVenta: req.body.precioVenta,
         stock: req.body.stock,
-        estadoEntrada: 'Activo'
+        estadoEntrada: req.body.estadoEntrada,
+        estadoSalida: req.body.estadoSalida
     };
 
     if (!isNaN(id)) {

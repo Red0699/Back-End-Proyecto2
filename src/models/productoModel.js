@@ -33,7 +33,7 @@ productoSchema.getEntradasInactivas = function(callback){
 //Listar todos los productos con entradas activas
 productoSchema.getEntradasActivas = function(callback){
     if(conexion){
-        var sql = "SELECT * FROM producto WHERE estadoEntrada = 'Activo' ORDER BY idProducto";
+        var sql = "SELECT * FROM producto WHERE estadoEntrada = 'Activo' AND stock > 0 ORDER BY idProducto";
         conexion.query(sql, function(error, rows){
             if(error){
                 throw error;
@@ -101,6 +101,7 @@ productoSchema.updateProdEntrada = function(id, data, callback){
                     + ", precioVenta = " + conexion.escape(data.precioVenta)
                     + ", stock = " + conexion.escape(data.stock)
                     +", estadoEntrada = " + conexion.escape(data.estadoEntrada)
+                    +", estadoSalida = " + conexion.escape(data.estadoSalida) 
                     + " WHERE idProducto = " + conexion.escape(id) + ";";
         conexion.query(sql, function(error, result){
             if(error){
