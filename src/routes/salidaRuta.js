@@ -46,7 +46,7 @@ const conexion = require('../connection/conexion');
  * /api/salida:
  *  get:
  *      summary: retorna todas las salidas
- *      tags: [Entrada]
+ *      tags: [Salida]
  *      responses:
  *          200:
  *              description: Todos las salidas
