@@ -5,74 +5,48 @@ const jwt = require("jsonwebtoken");
 const express = require('express');
 const router = express.Router();
 
-//const secret = 'login';
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *      Login:
+ *          type: object
+ *          properties:
+ *              correo: 
+ *                  type: string
+ *                  description: correo del usuario
+ *              contraseña:
+ *                  type: string
+ *                  description: contraseña del usuario
+ *          required:
+ *              - correo
+ *              - contraseña
+ *          example:
+ *              correo: prueba@example.com
+ *              contraseña: prueba
+ *           
+ */
 
-/*
-router.get('/login', (req, res) => {
-    res.render('login');
-})
-*/
-
-/*
-router.post('/login', async (req, res)=>{
-    try {
-        const correo = req.body.correo
-        const contraseña = req.body.contraseña        
-
-        if(!correo || !contraseña ){
-            res.render('login',{
-                alert:true,
-                alertTitle: "Advertencia",
-                alertMessage: "Ingrese un correo y contraseña",
-                alertIcon:'info',
-                showConfirmButton: true,
-                timer: false,
-                ruta: 'login'
-            })
-        }else{
-            conexion.query('SELECT * FROM usuario WHERE correo = ?', [correo], async (error, results)=>{
-                if( results.length == 0 / ){
-                    res.render('login', {
-                        alert: true,
-                        alertTitle: "Error",
-                        alertMessage: "Correo y/o Contraseña incorrectas",
-                        alertIcon:'error',
-                        showConfirmButton: true,
-                        timer: false,
-                        ruta: 'login'    
-                    })
-                }else{
-                    //inicio de sesión OK
-                    const idUsuario = results[0].idUsuario
-                    const token = jwt.sign({idUsuario:idUsuario}, process.env.JWT_SECRETO, {
-                        expiresIn: process.env.JWT_TIEMPO_EXPIRA
-                    })
-                    //generamos el token SIN fecha de expiracion
-                   //const token = jwt.sign({idUsuario: idUsuario}, process.env.JWT_SECRETO)
-                   console.log("TOKEN: "+token+" para el USUARIO : "+correo)
-
-                   const cookiesOptions = {
-                        expires: new Date(Date.now()+process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
-                        httpOnly: true
-                   }
-                   res.cookie('jwt', token, cookiesOptions)
-                   res.render('login', {
-                        alert: true,
-                        alertTitle: "Conexión exitosa",
-                        alertMessage: "¡LOGIN CORRECTO!",
-                        alertIcon:'success',
-                        showConfirmButton: false,
-                        timer: 800,
-                        ruta: ''
-                   })
-                }
-            })
-        }
-    } catch (error) {
-        console.log(error)
-    }
-})
-*/
+/**
+ * @swagger
+ * /api/login:
+ *  post:
+ *      summary: login
+ *      tags: [Login]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          $ref : '#/components/schemas/Login'
+ *      responses:
+ *          200:
+ *              description: Usuario logueado
+ *          400:
+ *              description: Credenciales incorrectas
+ *              
+ */
 
 router.post('/login', async (req, res) => {
     try {

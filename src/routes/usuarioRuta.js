@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+var nodemailer = require('nodemailer');
 
 const usuarioSchema = require('../models/usuarioModel');
 
@@ -127,9 +128,87 @@ router.post('/usuarios', (req, res) => {
     };
 
     //Funcion para insertar
-    usuarioSchema.insertUsuario(data, (error, data) => {
+    usuarioSchema.insertUsuario(data, async (error, data) => {
         if (data) {
             res.status(200).json(data);
+            //Requerimos el paquete
+            //var nodemailer = require('nodemailer');
+
+            //Creamos el objeto de transporte
+
+            /*
+            let testAccount = await nodemailer.createTestAccount();
+
+            var transporter = nodemailer.createTransport({
+                host: "smtp.ethereal.email",
+                port: 587,
+                secure: false,
+                auth: {
+                    user: testAccount.user,
+                    pass: testAccount.pass
+                }
+            });
+
+            var mensaje = "Has sido registrado al sistema"
+                + "Datos: "
+                + `Primer nombre = ${data.primerNombre}`;
+
+            console.log(req.body.correo)
+
+            var mailOptions = {
+                from: 'yimmernicolas@gmail.com',
+                to: req.body.correo,
+                subject: 'Asunto Del Correo',
+                text: "Hello world"
+            };
+
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email enviado: ' + info.response);
+                }
+            });
+            */
+
+            nodemailer.createTestAccount((err, account) => {
+                if (err) {
+                    console.error("Failed to create a testing account. " + err.message);
+                    return process.exit(1);
+                }
+                console.log("Credentials obtained, sending message...");
+                let transporter = nodemailer.createTransport({
+                    host: account.smtp.host,
+                    port: account.smtp.port,
+                    secure: account.smtp.secure,
+                    auth: {
+                        user: account.user,
+                        pass: account.pass,
+                    },
+                });
+                let message = {
+                    from: `Software Team <${account.user}>`,
+                    to: `Recipiente <${req.body.correo}>`,
+                    subject: "Ha sido registrado al sistema ✔",
+                    text: `Primer nombre : ${req.body.primerNombre}`
+                    + ` Segundo Nombre : ${req.body.segundoNombre}`
+                    + ` Apellido Paterno : ${req.body.apellidoPaterno}`
+                    + ` Apellido Materno : ${req.body.apellidoMaterno}`
+                    + ` Correo : ${req.body.correo}`
+                    + ` Telefono : ${req.body.telefono}`
+                    + ` Rol : ${req.body.idRol}`
+                    + ` Contraseña : ${req.body.contraseña}`
+                };
+                transporter.sendMail(message, (err, info) => {
+                    if (err) {
+                        console.log("Error occurred. " + err.message);
+                        return process.exit(1);
+                    }
+                    console.log("Message sent: %s", info.messageId);
+                    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+                });
+            });
+
         } else {
             res.status(500).send({ error: ":(" });
         }

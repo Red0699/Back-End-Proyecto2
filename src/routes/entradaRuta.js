@@ -2,6 +2,52 @@ const express = require('express');
 const router = express.Router();
 const conexion = require('../connection/conexion');
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *      Entrada:
+ *          type: object
+ *          properties:
+ *              idProveedor:
+ *                  type: integer
+ *                  description: ID del Proveedor
+ *              idProducto:
+ *                  type: integer
+ *                  description: ID del producto
+ *              estado:
+ *                  type: string
+ *                  description: Estado del producto
+ *          required:
+ *              - idProveedor
+ *              - idProducto
+ *              - estado
+ *          example:
+ *              idProveedor: 1
+ *              idProducto: 1
+ *              estado: Activo
+ *              
+ */
+
+// ------------------------------------ Ruta obtener todos los productos ---------------------------------------------
+
+/**
+ * @swagger
+ * /api/entrada:
+ *  get:
+ *      summary: retorna todas las entradas
+ *      tags: [Entrada]
+ *      responses:
+ *          200:
+ *              description: Todos las entradas
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref : '#/components/schemas/Entrada'
+ */
+
 //------------------------------------------------------------ Obtener entradas ----------------------------------------------------------------
 
 router.get('/entrada', async (req, res) => {
@@ -20,6 +66,25 @@ router.get('/entrada', async (req, res) => {
 })
 
 //------------------------------------------------------------ Insertar entrada ----------------------------------------------------------------
+
+/**
+ * @swagger
+ * /api/entrada:
+ *  post:
+ *      summary: crear una nueva entrada
+ *      tags: [Entrada]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          $ref : '#/components/schemas/Entrada'
+ *      responses:
+ *          200:
+ *              description: La entrada ha sido creada
+ *              
+ */
 
 router.post('/entrada', async (req, res) => {
     try {
@@ -49,6 +114,32 @@ router.post('/entrada', async (req, res) => {
 
 //------------------------------------------------------------ Consultar entrada ----------------------------------------------------------------
 
+/**
+ * @swagger
+ * /api/entrada/{id}:
+ *  get:
+ *      summary: retorna una entrada por ID
+ *      tags: [Entrada]
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            schema:
+ *              type: integer
+ *            required: true
+ *            description: Ingrese ID de la entrada
+ *      responses:
+ *          200:
+ *              description: Entrada
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref : '#/components/schemas/Entrada'
+ *          404:
+ *              description: Entrada no encontrada
+ */
+
 router.get('/entrada/:id', async (req, res) => {
     try{
         const id = req.params.id;
@@ -70,6 +161,34 @@ router.get('/entrada/:id', async (req, res) => {
 })
 
 //------------------------------------------------------------ Actualizar entrada ----------------------------------------------------------------
+
+/**
+ * @swagger
+ * /api/entrada/{id}:
+ *  put:
+ *      summary: actualizar una entrada por id
+ *      tags: [Entrada]
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            schema:
+ *              type: integer
+ *            required: true
+ *            description: Ingrese ID de una entrada existente
+ *      requestBody:
+ *          required: true
+ *          content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          $ref : '#/components/schemas/Entrada'
+ *      responses:
+ *          200:
+ *              description: La entrada ha sido editado correctamente
+ *          404:
+ *              description: Entrada no encontrada
+ */
+
 router.put('/entrada/:id', async (req, res) => {
     try{
         const id = req.params.id;
@@ -93,8 +212,6 @@ router.put('/entrada/:id', async (req, res) => {
         console.log(error);
     }
 })
-
-
 
 module.exports = router;
 

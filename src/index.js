@@ -11,7 +11,7 @@ const productoRoutes = require('./routes/productoRuta');
 const login = require('./routes/login');
 const entradaRoutes = require('./routes/entradaRuta')
 const salidaRoutes = require('./routes/salidaRuta')
-
+const inventarioRoutes = require('./routes/inventarioRuta')
 //auteticación
 const auth = require('./routes/auth');
 
@@ -48,6 +48,7 @@ app.use('/api', productoRoutes);
 app.use('/api', login);
 app.use('/api', entradaRoutes);
 app.use('/api', salidaRoutes);
+app.use('/api', inventarioRoutes);
 app.use('/api-swagger', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
 
 
